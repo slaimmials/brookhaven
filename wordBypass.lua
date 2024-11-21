@@ -184,7 +184,7 @@ function FindEvent(Name)
     for _,event in pairs(path:GetChildren()) do
         local access = true
         for _,name in pairs(nameEdited) do
-            if not event.Name:find(name) then
+            if not event.Name:find(name) or #event.Name > #Name+#nameEdited then
                 access = false
                 break;
             end
