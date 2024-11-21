@@ -52,6 +52,7 @@ UI["6"]["Text"] = [[Send]]
 
 UI["7"] = Instance.new("TextBox", UI["2"])
 UI["7"]["CursorPosition"] = -1
+UI["7"]["ClearTextOnFocus"] = false
 UI["7"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
 UI["7"]["BorderSizePixel"] = 0
 UI["7"]["TextWrapped"] = true
@@ -228,10 +229,12 @@ function Chat(str)
 end
 
 local plr = game:GetService("Players").LocalPlayer
+local Cooldown = false
+local lastCooldown = -1
 
 UI:OnClick(UI["5"], function()
     local text = UI["7"].Text
-    if text ~= "" and #text>1 then
+    if text ~= "" and #text>1 and not Cooldown then
         local Sign = plr.Backpack:FindFirstChild("Sign")
         if not Sign then
             FindEvent("Tool"):InvokeServer("PickingTools", "Sign")
@@ -240,5 +243,19 @@ UI:OnClick(UI["5"], function()
         Sign["ToolSound"]:FireServer("Sign", "SignWords", "le le le le le")
         wait(0.1)
         Chat(text)
+        if lastCooldown == -1 then
+            lastCooldown = tick()
+            spawn(function()
+                wait(17)
+                Cooldown = true
+                UI["6"]["TextColor3"] = Color3.fromRGB(255, 0, 0)
+                UI["6"]["Text"] = [[Cooldown...]]
+                wait(5)
+                UI["6"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+                UI["6"]["Text"] = [[Send]]
+                Cooldown = false
+            end)
+        end 
     end
 end)
+
