@@ -30,6 +30,18 @@ UI["4"]["Text"] = [[Word bypasser 😎]]
 UI["4"]["Name"] = [[Title]]
 UI["4"]["Position"] = UDim2.new(0, 0, 0, 4)
 
+UI["51"] = Instance.new("TextLabel", UI["3"])
+UI["51"]["TextWrapped"] = true
+UI["51"]["TextXAlignment"] = Enum.TextXAlignment.Right
+UI["51"]["TextYAlignment"] = Enum.TextYAlignment.Bottom
+UI["51"]["TextSize"] = 12
+UI["51"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+UI["51"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+UI["51"]["BackgroundTransparency"] = 1
+UI["51"]["Size"] = UDim2.new(0, 387, 0, 30)
+UI["51"]["Text"] = [[v 0.5]]
+UI["51"]["Name"] = [[Version]]
+
 UI["5"] = Instance.new("Frame", UI["2"])
 UI["5"]["BorderSizePixel"] = 0
 UI["5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
@@ -219,6 +231,12 @@ function StopAnim(Name,waitF)
     end
 end
 
+function WaitForText(label, text)
+    repeat
+        wait(0.02)
+    until label.Text == text
+end
+
 function Chat(str)
     str = tostring(str)
     if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then
@@ -234,14 +252,14 @@ local lastCooldown = -1
 
 UI:OnClick(UI["5"], function()
     local text = UI["7"].Text
-    if text ~= "" and #text>1 and not Cooldown then
+    if text ~= "" and #text>1 then --and not Cooldown then
         local Sign = plr.Backpack:FindFirstChild("Sign")
         if not Sign then
             FindEvent("Tool"):InvokeServer("PickingTools", "Sign")
             Sign = plr.Backpack:WaitForChild("Sign")
         end
         Sign["ToolSound"]:FireServer("Sign", "SignWords", "le le le le le")
-        wait(0.1)
+        WaitForText(Sign["White"]["A"]["B"]["C"], "le le le le le")
         Chat(text)
         if lastCooldown == -1 then
             lastCooldown = tick()
@@ -259,4 +277,3 @@ UI:OnClick(UI["5"], function()
         end 
     end
 end)
-
