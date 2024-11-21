@@ -39,7 +39,7 @@ UI["51"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], 
 UI["51"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
 UI["51"]["BackgroundTransparency"] = 1
 UI["51"]["Size"] = UDim2.new(0, 387, 0, 30)
-UI["51"]["Text"] = [[v 0.5]]
+UI["51"]["Text"] = [[v 0.6]]
 UI["51"]["Name"] = [[Version]]
 
 UI["5"] = Instance.new("Frame", UI["2"])
@@ -260,6 +260,7 @@ UI:OnClick(UI["5"], function()
         end
         Sign["ToolSound"]:FireServer("Sign", "SignWords", "le le le le le")
         WaitForText(Sign["White"]["A"]["B"]["C"], "le le le le le")
+        wait(0.23)
         Chat(text)
         if lastCooldown == -1 then
             lastCooldown = tick()
