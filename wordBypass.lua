@@ -254,6 +254,7 @@ UI:OnClick(UI["5"], function()
                 UI["6"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
                 UI["6"]["Text"] = [[Send]]
                 Cooldown = false
+		lastCooldown = -1
             end)
         end 
     end
