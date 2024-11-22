@@ -39,7 +39,7 @@ UI["51"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], 
 UI["51"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
 UI["51"]["BackgroundTransparency"] = 1
 UI["51"]["Size"] = UDim2.new(0, 387, 0, 30)
-UI["51"]["Text"] = [[v 0.6]]
+UI["51"]["Text"] = [[v 2]]
 UI["51"]["Name"] = [[Version]]
 
 UI["5"] = Instance.new("Frame", UI["2"])
@@ -206,6 +206,7 @@ function FindEvent(Name)
             break
         end
     end
+    print(foundEvent.Name)
     return foundEvent
 end
 
@@ -252,14 +253,14 @@ local lastCooldown = -1
 
 UI:OnClick(UI["5"], function()
     local text = UI["7"].Text
+    local bypass = {
+        ["порно"] = "порнo",
+    }
+    for pattern,replace in pairs(bypass) do
+        text = text:gsub(pattern, replace)
+    end
     if text ~= "" and #text>1 then --and not Cooldown then
-        local Sign = plr.Backpack:FindFirstChild("Sign")
-        if not Sign then
-            FindEvent("Tool"):InvokeServer("PickingTools", "Sign")
-            Sign = plr.Backpack:WaitForChild("Sign")
-        end
-        Sign["ToolSound"]:FireServer("Sign", "SignWords", "le le le le le")
-        WaitForText(Sign["White"]["A"]["B"]["C"], "le le le le le")
+        FindEvent("RPNameText"):FireServer("RolePlayFollow", "le le le le le")
         wait(0.23)
         Chat(text)
         if lastCooldown == -1 then
@@ -268,10 +269,8 @@ UI:OnClick(UI["5"], function()
                 wait(17)
                 Cooldown = true
                 UI["6"]["TextColor3"] = Color3.fromRGB(255, 0, 0)
-                UI["6"]["Text"] = [[Cooldown...]]
                 wait(5)
                 UI["6"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
-                UI["6"]["Text"] = [[Send]]
                 Cooldown = false
 		lastCooldown = -1
             end)
