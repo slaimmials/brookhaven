@@ -1,4 +1,4 @@
---a
+wait(10)
 local passes, fails, undefined = 0, 0, 0
 local running = 0
 
@@ -62,7 +62,7 @@ local function test(name, aliases, callback, target)
 	running = running + 1
 
 	task.spawn(function()
-		wait(running)
+		wait(running*0.1)
 		if not getGlobal(name) then
 			fails = fails + 1
 			warn("⛔ " .. name)
@@ -695,7 +695,6 @@ test("setrbxclipboard", {}, setrbxclipboard)
 test("getrawmetatable", {}, function()
 	local metatable = { __metatable = "Locked!" }
 	local object = setmetatable({}, metatable)
-	print(serializeTable(getrawmetatable(object)))
 	assert(getrawmetatable(object) == metatable, "Did not return the metatable")
 end)
 
