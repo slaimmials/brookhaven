@@ -281,7 +281,7 @@ test("decompile", {}, function()
 end)
 
 -- Console
-if not UserInputService.GamepadEnabled then
+if not UserInputService.TouchEnabled then
 	test("rconsoleclear", {"consoleclear"})
 
 	test("rconsolecreate", {"consolecreate", })
@@ -760,7 +760,7 @@ test("lz4decompress", {}, function()
 	assert(lz4decompress(compressed, #raw) == raw, "Decompression did not return the original string")
 end)
 
-if not UserInputService.GamepadEnabled then
+if not UserInputService.TouchEnabled then
 	test("messagebox", {}, messagebox)
 end
 test("queue_on_teleport", {"queueonteleport"})
