@@ -1,4 +1,3 @@
---remake by slaimmials
 local passes, fails, undefined = 0, 0, 0
 local running = 0
 
@@ -933,7 +932,7 @@ end)
 
 -- WebSocket
 
-test("WebSocket", {}, WebSocket)
+test("WebSocket", {})
 
 test("WebSocket.connect", {}, function()
 	local types = {
