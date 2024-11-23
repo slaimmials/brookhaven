@@ -63,6 +63,7 @@ local function test(name, aliases, callback, target)
 	running = running + 1
 
 	task.spawn(function()
+		task.wait(running*0.015)
 		if not getGlobal(name) then
 			fails = fails + 1
 			warn("⛔ " .. name)
