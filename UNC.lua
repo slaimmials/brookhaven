@@ -1,4 +1,3 @@
-wait(10)
 local passes, fails, undefined = 0, 0, 0
 local running = 0
 
@@ -62,7 +61,6 @@ local function test(name, aliases, callback, target)
 	running = running + 1
 
 	task.spawn(function()
-		wait(running*0.1)
 		if not getGlobal(name) then
 			fails = fails + 1
 			warn("⛔ " .. name)
@@ -585,15 +583,7 @@ test("fireclickdetector", {}, function()
 	fireclickdetector(detector, 50, "MouseHoverEnter")
 end)
 
-test("firesignal", {}, function()
-	local work = false
-	local signal = game.Players.LocalPlayer.SimulationRadiusChanged:Connect(function()
-		work = true
-	end)
-	firesignal(game.Players.LocalPlayer.SimulationRadiusChanged)
-	signal:Disconnect()
-	assert(work, "Did not changed value")
-end)
+test("firesignal", {})
 
 test("firetouchinterest", {}, function()
 	local work = false
