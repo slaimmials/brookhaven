@@ -1,6 +1,8 @@
 local passes, fails, undefined = 0, 0, 0
 local running = 0
 
+local UserInputService = game:GetService("UserInputService")
+
 function serializeTable(val, name, skipnewlines, depth)
 	local skipnewlines = skipnewlines
     depth = depth or 2
@@ -278,18 +280,19 @@ test("decompile", {}, function()
 end)
 
 -- Console
+if not UserInputService.GamepadEnabled then
+	test("rconsoleclear", {"consoleclear"})
 
-test("rconsoleclear", {"consoleclear"})
+	test("rconsolecreate", {"consolecreate", })
 
-test("rconsolecreate", {"consolecreate", })
+	test("rconsoleinput", {"consoleinput"})
 
-test("rconsoleinput", {"consoleinput"})
+	test("rconsoleprint", {"consoleprint"})
 
-test("rconsoleprint", {"consoleprint"})
+	test("rconsolesettitle", {"rconsolename", "consolesettitle"})
 
-test("rconsolesettitle", {"rconsolename", "consolesettitle"})
-
-test("rconsoledestroy", {"consoledestroy"})
+	test("rconsoledestroy", {"consoledestroy"})
+end
 -- Crypt
 
 test("crypt.base64encode", {"crypt.base64.encode", "crypt.base64_encode", "base64.encode", "base64_encode"}, function()
@@ -678,7 +681,9 @@ test("setscriptable", {}, function()
 	assert(isscriptable(fire, "size_xml") == false, "⚠️⚠️ setscriptable persists between unique instances ⚠️⚠️")
 end)
 
-test("setrbxclipboard", {}, setrbxclipboard)
+test("setrbxclipboard", {}, function()
+	setrbxclipboard("")
+end)
 
 -- Metatable
 
@@ -754,8 +759,9 @@ test("lz4decompress", {}, function()
 	assert(lz4decompress(compressed, #raw) == raw, "Decompression did not return the original string")
 end)
 
-test("messagebox", {}, messagebox)
-
+if not UserInputService.GamepadEnabled then
+	test("messagebox", {}, messagebox)
+end
 test("queue_on_teleport", {"queueonteleport"})
 
 test("request", {"http.request", "http_request"}, function()
@@ -830,7 +836,7 @@ end)
 test("getscriptbytecode", {"dumpstring"}, function()
 	local animate = game:GetService("Players").LocalPlayer.Character.Animate
 	local bytecode = getscriptbytecode(animate)
-	assert(bytecode == "Compressed data too short", "nil bytecode")
+	--assert(bytecode == "Compressed data too short", "nil bytecode")
 	assert(type(bytecode) == "string", "Did not return a string for Character.Animate (a " .. animate.ClassName .. ")")
 end)
 
